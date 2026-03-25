@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tech Store</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <h1>🛒 Tech Store</h1>
+    <div class="auth">
+      <input id="loginEmail" type="email" placeholder="Email (login)" />
+      <input id="loginPassword" type="password" placeholder="Senha (login)" />
+      <button id="btnLogin">Login</button>
+      <button id="btnOpenRegister">Cadastro</button>
+      <button id="btnLogout" class="hidden">Sair</button>
+    </div>
+  </header>
+
+  <!-- Modal de cadastro (fora do header para evitar bug de layout) -->
+  <div id="registerModal" class="hidden"
+       style="display:none; position:fixed; inset:0; background:rgba(0,0,0,.5); align-items:center; justify-content:center; z-index:9999;">
+    <div style="background:#fff; padding:16px; border-radius:10px; min-width:320px;">
+      <h3>Cadastrar</h3>
+      <input id="registerNome" type="text" placeholder="Nome" style="width:100%;margin:6px 0;padding:8px;">
+      <input id="registerEmail" type="email" placeholder="Email" style="width:100%;margin:6px 0;padding:8px;">
+      <input id="registerPassword" type="password" placeholder="Senha" style="width:100%;margin:6px 0;padding:8px;">
+      <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:8px;">
+        <button id="btnCancelRegister">Cancelar</button>
+        <button id="btnDoRegister">Criar conta</button>
+      </div>
+    </div>
+  </div>
+
+  <main class="container">
+    <aside class="sidebar">
+      <h3>Buscar</h3>
+      <input id="searchInput" type="text" placeholder="Nome do produto..." />
+      <button id="btnSearch">Pesquisar</button>
+
+      <h3>Categorias</h3>
+      <select id="categorySelect">
+        <option value="">Todas</option>
+      </select>
+
+      <h3>Ordenar</h3>
+      <select id="orderSelect">
+        <option value="-created_at">Mais recentes</option>
+        <option value="preco">Preço crescente</option>
+        <option value="-preco">Preço decrescente</option>
+        <option value="nome">Nome A-Z</option>
+      </select>
+
+      <button id="btnApplyFilters">Aplicar filtros</button>
+      <hr />
+      <h3>Destaques</h3>
+      <button id="btnDestaques">Ver produtos em destaque</button>
+      <button id="btnAll">Ver todos</button>
+    </aside>
+
+    <section class="content">
+      <h2>Produtos</h2>
+      <div id="productsGrid" class="grid"></div>
+
+      <div class="pagination">
+        <button id="prevPage">Anterior</button>
+        <span id="pageInfo">Página 1</span>
+        <button id="nextPage">Próxima</button>
+      </div>
+    </section>
+
+    <aside class="cart">
+      <h2>Carrinho</h2>
+      <div id="cartList"></div>
+      <p><strong>Total:</strong> R$ <span id="cartTotal">0.00</span></p>
+      <button id="btnRefreshCart">Atualizar carrinho</button>
+      <button id="btnCheckout">Finalizar Pedido</button>
+
+      <hr />
+      <h2>Meus Pedidos</h2>
+      <button id="btnLoadOrders">Carregar pedidos</button>
+      <div id="ordersList"></div>
+    </aside>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
