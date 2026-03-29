@@ -3,84 +3,138 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Tech Store</title>
+  <title>Tech Store | Loja de Tecnologia</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <header class="topbar">
-    <h1>🛒 Tech Store</h1>
+    <div class="brand">
+      <h1>🛒 Tech Store</h1>
+      <p class="subtitle">Tecnologia para estudo, trabalho e dia a dia</p>
+    </div>
+
     <div class="auth">
-      <input id="loginEmail" type="email" placeholder="Email (login)" />
-      <input id="loginPassword" type="password" placeholder="Senha (login)" />
-      <button id="btnLogin">Login</button>
-      <button id="btnOpenRegister">Cadastro</button>
-      <button id="btnLogout" class="hidden">Sair</button>
+      <input id="loginEmail" type="email" placeholder="Seu e-mail" />
+      <input id="loginPassword" type="password" placeholder="Sua senha" />
+      <button id="btnLogin">Entrar</button>
+      <button id="btnOpenRegister" class="secondary-btn">Criar conta</button>
+      <button id="btnLogout" class="hidden danger-btn">Sair</button>
     </div>
   </header>
 
-  <!-- Modal de cadastro (fora do header para evitar bug de layout) -->
-  <div id="registerModal" class="hidden"
-       style="display:none; position:fixed; inset:0; background:rgba(0,0,0,.5); align-items:center; justify-content:center; z-index:9999;">
-    <div style="background:#fff; padding:16px; border-radius:10px; min-width:320px;">
-      <h3>Cadastrar</h3>
-      <input id="registerNome" type="text" placeholder="Nome" style="width:100%;margin:6px 0;padding:8px;">
-      <input id="registerEmail" type="email" placeholder="Email" style="width:100%;margin:6px 0;padding:8px;">
-      <input id="registerPassword" type="password" placeholder="Senha" style="width:100%;margin:6px 0;padding:8px;">
-      <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:8px;">
-        <button id="btnCancelRegister">Cancelar</button>
-        <button id="btnDoRegister">Criar conta</button>
+  <div id="registerModal" class="modal hidden">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h2>Criar conta</h2>
+        <p>Preencha os dados abaixo para se cadastrar na loja.</p>
+      </div>
+
+      <div class="modal-form">
+        <input id="registerNome" type="text" placeholder="Nome completo" />
+        <input id="registerEmail" type="email" placeholder="E-mail" />
+        <input id="registerPassword" type="password" placeholder="Senha" />
+      </div>
+
+      <div class="modal-actions">
+        <button id="btnCancelRegister" class="secondary-btn">Cancelar</button>
+        <button id="btnDoRegister">Cadastrar</button>
       </div>
     </div>
   </div>
 
   <main class="container">
     <aside class="sidebar">
-      <h3>Buscar</h3>
-      <input id="searchInput" type="text" placeholder="Nome do produto..." />
-      <button id="btnSearch">Pesquisar</button>
+      <section class="panel">
+        <h3>Buscar produto</h3>
+        <p class="section-text">Pesquise por nome e encontre mais rápido o que você precisa.</p>
+        <input id="searchInput" type="text" placeholder="Ex.: notebook, mouse, teclado..." />
+        <button id="btnSearch">Pesquisar</button>
+      </section>
 
-      <h3>Categorias</h3>
-      <select id="categorySelect">
-        <option value="">Todas</option>
-      </select>
+      <section class="panel">
+        <h3>Filtrar por categoria</h3>
+        <select id="categorySelect">
+          <option value="">Todas as categorias</option>
+        </select>
+      </section>
 
-      <h3>Ordenar</h3>
-      <select id="orderSelect">
-        <option value="-created_at">Mais recentes</option>
-        <option value="preco">Preço crescente</option>
-        <option value="-preco">Preço decrescente</option>
-        <option value="nome">Nome A-Z</option>
-      </select>
+      <section class="panel">
+        <h3>Ordenação</h3>
+        <select id="orderSelect">
+          <option value="-created_at">Mais recentes</option>
+          <option value="preco">Menor preço</option>
+          <option value="-preco">Maior preço</option>
+          <option value="nome">Nome de A a Z</option>
+        </select>
 
-      <button id="btnApplyFilters">Aplicar filtros</button>
+        <button id="btnApplyFilters">Aplicar filtros</button>
+      </section>
+
       <hr />
-      <h3>Destaques</h3>
-      <button id="btnDestaques">Ver produtos em destaque</button>
-      <button id="btnAll">Ver todos</button>
+
+      <section class="panel">
+        <h3>Atalhos</h3>
+        <p class="section-text">Use estes botões para navegar mais rápido pela vitrine.</p>
+        <button id="btnDestaques">Ver produtos em destaque</button>
+        <button id="btnAll" class="secondary-btn">Mostrar todos</button>
+      </section>
     </aside>
 
     <section class="content">
-      <h2>Produtos</h2>
-      <div id="productsGrid" class="grid"></div>
+      <section class="hero">
+        <h2>Catálogo de produtos</h2>
+        <p>
+          Explore os itens disponíveis na loja, compare opções e adicione ao carrinho com praticidade.
+        </p>
+      </section>
 
-      <div class="pagination">
-        <button id="prevPage">Anterior</button>
-        <span id="pageInfo">Página 1</span>
-        <button id="nextPage">Próxima</button>
-      </div>
+      <section class="products-section">
+        <div class="section-header">
+          <h2>Produtos disponíveis</h2>
+          <span class="section-badge">Atualizado pela API</span>
+        </div>
+
+        <div id="productsGrid" class="grid"></div>
+
+        <div class="pagination">
+          <button id="prevPage">Anterior</button>
+          <span id="pageInfo">Página 1</span>
+          <button id="nextPage">Próxima</button>
+        </div>
+      </section>
     </section>
 
     <aside class="cart">
-      <h2>Carrinho</h2>
-      <div id="cartList"></div>
-      <p><strong>Total:</strong> R$ <span id="cartTotal">0.00</span></p>
-      <button id="btnRefreshCart">Atualizar carrinho</button>
-      <button id="btnCheckout">Finalizar Pedido</button>
+      <section class="panel">
+        <div class="section-header">
+          <h2>Seu carrinho</h2>
+          <span class="section-badge">Resumo</span>
+        </div>
+
+        <div id="cartList"></div>
+
+        <p class="cart-total">
+          <strong>Total:</strong> R$ <span id="cartTotal">0.00</span>
+        </p>
+
+        <div class="cart-actions">
+          <button id="btnRefreshCart" class="secondary-btn">Atualizar carrinho</button>
+          <button id="btnCheckout">Finalizar pedido</button>
+        </div>
+      </section>
 
       <hr />
-      <h2>Meus Pedidos</h2>
-      <button id="btnLoadOrders">Carregar pedidos</button>
-      <div id="ordersList"></div>
+
+      <section class="panel">
+        <div class="section-header">
+          <h2>Meus pedidos</h2>
+          <span class="section-badge">Histórico</span>
+        </div>
+
+        <p class="section-text">Consulte aqui os pedidos realizados pela sua conta.</p>
+        <button id="btnLoadOrders">Carregar pedidos</button>
+        <div id="ordersList"></div>
+      </section>
     </aside>
   </main>
 
